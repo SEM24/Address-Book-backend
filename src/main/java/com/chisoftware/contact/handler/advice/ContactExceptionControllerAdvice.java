@@ -1,5 +1,6 @@
 package com.chisoftware.contact.handler.advice;
 
+import com.chisoftware.contact.handler.exception.AlreadyExistsException;
 import com.chisoftware.contact.handler.exception.ContactNotFoundException;
 import com.chisoftware.user.model.dto.ErrorDTO;
 import org.springframework.http.HttpStatus;
@@ -14,5 +15,11 @@ public class ContactExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorDTO> contactNotFoundExceptionExceptionHandler(ContactNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDTO(exception.getMessage()));
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorDTO> userAlreadyExistsExceptionHandler(AlreadyExistsException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDTO(exception.getMessage()));
     }
 }

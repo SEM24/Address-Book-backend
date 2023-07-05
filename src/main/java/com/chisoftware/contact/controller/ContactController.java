@@ -1,7 +1,8 @@
 package com.chisoftware.contact.controller;
 
+import com.chisoftware.contact.model.dto.ContactDTO;
 import com.chisoftware.contact.model.dto.ContactRespone;
-import com.chisoftware.contact.model.dto.CreateContactDTO;
+import com.chisoftware.contact.model.entity.Contact;
 import com.chisoftware.contact.service.ContactService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Tag(name = "Contact Controller", description = "CRUD for Contact Controller")
 @AllArgsConstructor
@@ -22,18 +25,34 @@ import org.springframework.web.bind.annotation.*;
 public class ContactController {
     private ContactService contactService;
 
+    @Operation(summary = "Show Contacts")
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Contact> showContacts(Authentication authentication) {
+        return contactService.getAllContacts(authentication);
+    }
+
     @Operation(summary = "Add Contact")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ContactRespone addContact(Authentication authentication,
-                                     @RequestBody @Valid CreateContactDTO request) {
+                                     @RequestBody @Valid ContactDTO request) {
         return contactService.addContact(authentication, request);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{contact-id}")
     @Operation(summary = "Delete Contact")
     @ResponseStatus(HttpStatus.OK)
-    ContactRespone deleteContact(Authentication authentication, @RequestParam("contact-id") Long contactId) {
+    ContactRespone deleteContact(Authentication authentication, @PathVariable("contact-id") Long contactId) {
         return contactService.deleteContact(authentication, contactId);
+    }
+
+    @PutMapping("/{contact-id}")
+    @Operation(summary = "Edit Contact")
+    @ResponseStatus(HttpStatus.OK)
+    ContactRespone editContact(Authentication authentication,
+                               @PathVariable("contact-id") Long contactId,
+                               @RequestBody @Valid ContactDTO request) {
+        return contactService.editContact(authentication, contactId, request);
     }
 }

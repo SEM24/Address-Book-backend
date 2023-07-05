@@ -1,10 +1,9 @@
 package com.chisoftware.contact.model.entity;
 
 import com.chisoftware.user.model.entity.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Set;
 
@@ -18,6 +17,7 @@ import java.util.Set;
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     private String name;
@@ -26,11 +26,9 @@ public class Contact {
     private Set<String> emails;
 
     @ElementCollection
-    private Set<String> phoneNumbers;
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "talent_id", nullable = false)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<String> phones;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 }
