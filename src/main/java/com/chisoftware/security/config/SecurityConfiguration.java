@@ -1,5 +1,8 @@
 package com.chisoftware.security.config;
 
+import com.chisoftware.user.UserRepository;
+import com.chisoftware.user.handler.exception.UserNotFoundException;
+import com.chisoftware.user.mapper.UserMapper;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -9,8 +12,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -63,6 +65,12 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    UserDetailsService userDetailsService(UserRepository repository, UserMapper mapper) {
+        return email -> repository.findByUsername(email).map(mapper::toUserDetails)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
+    @Bean
     public KeyPair keyPair() throws NoSuchAlgorithmException {
         var keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(2048);
@@ -89,10 +97,5 @@ public class SecurityConfiguration {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

@@ -27,10 +27,10 @@ import java.util.stream.Collectors;
 @Transactional
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-
     private JwtEncoder jwtEncoder;
     private UserRepository userRepo;
     private PasswordEncoder passwordEncoder;
+
     @Override
     public Token authentication(RegistrationDTO request) {
         User user = createUser(request);
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
         User user = findUserByUsername(username);
         return generateJwtToken(username, getRoles(user));
     }
-
-    private User findUserByUsername(String name) {
+    @Override
+    public User findUserByUsername(String name) {
         return userRepo.findByUsername(name)
                 .orElseThrow(UserNotFoundException::new);
     }

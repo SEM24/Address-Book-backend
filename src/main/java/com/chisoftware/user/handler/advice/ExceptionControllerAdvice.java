@@ -1,5 +1,6 @@
 package com.chisoftware.user.handler.advice;
 
+import com.chisoftware.contact.handler.exception.ContactNotFoundException;
 import com.chisoftware.user.handler.exception.*;
 import com.chisoftware.user.model.dto.ErrorDTO;
 import jakarta.validation.ConstraintViolationException;
@@ -35,7 +36,7 @@ public class ExceptionControllerAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(exception.getMessage()));
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler({UserNotFoundException.class, ContactNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorDTO> notFoundExceptionExceptionHandler(Exception exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDTO(exception.getMessage()));

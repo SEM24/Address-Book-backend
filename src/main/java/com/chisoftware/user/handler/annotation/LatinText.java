@@ -1,6 +1,6 @@
 package com.chisoftware.user.handler.annotation;
 
-import com.chisoftware.user.handler.validation.LatinUsernameValidator;
+import com.chisoftware.user.handler.validation.LatinTextValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -12,10 +12,10 @@ import static java.lang.annotation.ElementType.FIELD;
 
 @Target({FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {LatinUsernameValidator.class})
-public @interface LatinUsername {
+@Constraint(validatedBy = {LatinTextValidator.class})
+public @interface LatinText {
 
-    String message() default "{Username.invalid}";
+    String message() default "{Text.invalid}";
 
     Class<?>[] groups() default {};
 
