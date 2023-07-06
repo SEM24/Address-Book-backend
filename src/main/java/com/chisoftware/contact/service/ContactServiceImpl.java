@@ -100,6 +100,7 @@ public class ContactServiceImpl implements ContactService {
         if (contactRepo.existsByNameContainsIgnoreCaseAndUser(request.name(), currentUser))
             throw new AlreadyExistsException("Contact names must be unique for each contact.");
     }
+
     /*
      * Check if the fields in the list are not duplicates of each other.
      */

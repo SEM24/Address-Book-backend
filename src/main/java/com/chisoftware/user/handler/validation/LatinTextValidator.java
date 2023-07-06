@@ -1,6 +1,6 @@
 package com.chisoftware.user.handler.validation;
 
-import com.chisoftware.user.handler.ValidationProperties;
+import com.chisoftware.user.handler.UserValidationProperties;
 import com.chisoftware.user.handler.annotation.LatinText;
 import com.chisoftware.user.handler.exception.BadRequestException;
 import jakarta.validation.ConstraintValidator;
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 @AllArgsConstructor
 public class LatinTextValidator implements ConstraintValidator<LatinText, String> {
-    private ValidationProperties validationProp;
+    private UserValidationProperties validationProp;
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
