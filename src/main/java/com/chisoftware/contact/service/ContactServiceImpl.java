@@ -4,7 +4,7 @@ import com.chisoftware.contact.ContactRepository;
 import com.chisoftware.contact.handler.exception.AlreadyExistsException;
 import com.chisoftware.contact.handler.exception.ContactNotFoundException;
 import com.chisoftware.contact.model.dto.ContactDTO;
-import com.chisoftware.contact.model.dto.ContactRespone;
+import com.chisoftware.contact.model.dto.ContactResponse;
 import com.chisoftware.contact.model.entity.Contact;
 import com.chisoftware.user.handler.exception.BadRequestException;
 import com.chisoftware.user.handler.exception.ForbiddenRequestException;
@@ -12,7 +12,6 @@ import com.chisoftware.user.model.entity.User;
 import com.chisoftware.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +34,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public ContactRespone addContact(Authentication authentication, ContactDTO request) {
+    public ContactResponse addContact(Authentication authentication, ContactDTO request) {
         User currentUser = getCurrentUser(authentication.getName());
         validateRequest(request, currentUser);
         Contact createContact = Contact.builder()
@@ -45,11 +44,11 @@ public class ContactServiceImpl implements ContactService {
                 .phones(new HashSet<>(request.phones()))
                 .build();
         contactRepo.save(createContact);
-        return new ContactRespone(createContact.getId(), "Contact was created successfully!");
+        return new ContactResponse(createContact.getId(), "Contact was created successfully!");
     }
 
     @Override
-    public ContactRespone editContact(Authentication authentication, Long contactId, ContactDTO request) {
+    public ContactResponse editContact(Authentication authentication, Long contactId, ContactDTO request) {
         User currentUser = getCurrentUser(authentication.getName());
         Contact contact = findById(contactId);
         checkIfNotOwnContact(currentUser, contact);
@@ -57,16 +56,16 @@ public class ContactServiceImpl implements ContactService {
         updateContactFields(contact, request, currentUser);
         contactRepo.save(contact);
 
-        return new ContactRespone(contact.getId(), "Edited successfully!");
+        return new ContactResponse(contact.getId(), "Edited successfully!");
     }
 
     @Override
-    public ContactRespone deleteContact(Authentication authentication, Long contactId) {
+    public ContactResponse deleteContact(Authentication authentication, Long contactId) {
         User user = getCurrentUser(authentication.getName());
         Contact contact = findById(contactId);
         checkIfNotOwnContact(user, contact);
         contactRepo.deleteById(contactId);
-        return new ContactRespone(contactId, "Contact was successfully deleted!");
+        return new ContactResponse(contactId, "Contact was successfully deleted!");
     }
 
     /*
@@ -123,15 +122,15 @@ public class ContactServiceImpl implements ContactService {
     }
 
 
-    private User getCurrentUser(String username) {
+    public User getCurrentUser(String username) {
         User user = userService.findUserByUsername(username);
-        if (isNotCurrentUser(user)) {
+        if (userService.isNotCurrentUser(user)) {
             throw new ForbiddenRequestException();
         }
         return user;
     }
 
-    private void checkIfNotOwnContact(User user, Contact contact) {
+    public void checkIfNotOwnContact(User user, Contact contact) {
         List<Contact> contacts = contactRepo.findByUser(user);
         if (!contacts.contains(contact)) throw new ForbiddenRequestException();
     }
@@ -139,10 +138,5 @@ public class ContactServiceImpl implements ContactService {
     private Contact findById(Long contactId) {
         return contactRepo.findById(contactId)
                 .orElseThrow(ContactNotFoundException::new);
-    }
-
-    private boolean isNotCurrentUser(User user) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return !username.equalsIgnoreCase(user.getUsername());
     }
 }

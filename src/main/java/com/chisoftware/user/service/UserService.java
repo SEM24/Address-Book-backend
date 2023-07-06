@@ -10,4 +10,6 @@ public interface UserService {
     Token signIn(String username);
 
     User findUserByUsername(String name);
+
+    boolean isNotCurrentUser(User user);
 }

@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -43,6 +44,7 @@ public class UserServiceImpl implements UserService {
         User user = findUserByUsername(username);
         return generateJwtToken(username, getRoles(user));
     }
+
     @Override
     public User findUserByUsername(String name) {
         return userRepo.findByUsername(name)
@@ -83,5 +85,11 @@ public class UserServiceImpl implements UserService {
         Collection<? extends GrantedAuthority> auth =
                 saveUser.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
         return auth.stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public boolean isNotCurrentUser(User user) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return !username.equalsIgnoreCase(user.getUsername());
     }
 }

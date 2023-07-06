@@ -1,7 +1,7 @@
 package com.chisoftware.contact.controller;
 
 import com.chisoftware.contact.model.dto.ContactDTO;
-import com.chisoftware.contact.model.dto.ContactRespone;
+import com.chisoftware.contact.model.dto.ContactResponse;
 import com.chisoftware.contact.model.entity.Contact;
 import com.chisoftware.contact.service.ContactService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,24 +35,24 @@ public class ContactController {
     @Operation(summary = "Add Contact")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ContactRespone addContact(Authentication authentication,
-                                     @RequestBody @Valid ContactDTO request) {
+    public ContactResponse addContact(Authentication authentication,
+                                      @RequestBody @Valid ContactDTO request) {
         return contactService.addContact(authentication, request);
     }
 
     @DeleteMapping("/{contact-id}")
     @Operation(summary = "Delete Contact")
     @ResponseStatus(HttpStatus.OK)
-    ContactRespone deleteContact(Authentication authentication, @PathVariable("contact-id") Long contactId) {
+    ContactResponse deleteContact(Authentication authentication, @PathVariable("contact-id") Long contactId) {
         return contactService.deleteContact(authentication, contactId);
     }
 
     @PutMapping("/{contact-id}")
     @Operation(summary = "Edit Contact")
     @ResponseStatus(HttpStatus.OK)
-    ContactRespone editContact(Authentication authentication,
-                               @PathVariable("contact-id") Long contactId,
-                               @RequestBody @Valid ContactDTO request) {
+    ContactResponse editContact(Authentication authentication,
+                                @PathVariable("contact-id") Long contactId,
+                                @RequestBody @Valid ContactDTO request) {
         return contactService.editContact(authentication, contactId, request);
     }
 }
