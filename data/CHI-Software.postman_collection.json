@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "f1785f7a-b818-4663-811b-3149811bf55d",
+		"name": "CHI-Software",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26037259"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User Authentication",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "User login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJDSEktU29mdHdhcmUiLCJzdWIiOiJyZWdpc3RyYXRpb24iLCJleHAiOjE2ODg1NzEyNDIsImlhdCI6MTY4ODU2NzY0Miwic2NvcGUiOiJST0xFX1VTRVIifQ.b0lRNW7VjaYvDfSeOMFtBdBYCaOL9_DXlK3kfbwXtouxl1BV3KmqncmdGDGjed69N__uZVL5obo2_SgdXJju45zWBW2qfS74stTV51SPIji8sUW3B-a29E6lL6JjZ8_l_DEZPHo82k7JOjJ0GrIla0jHkrtGRhPyPINcVR-BBOTdEXjF83psRX8eA_L56xnvtOQ-pdy5rmeW-S3tDCeyarA85N6mePuNVliuv_d42ANLPBkKqkrhPELO8amWzdLSPw3an8HSShkgR-HmhZdYsd6FazlXF4wOE29zcYYBLjQXo6CGjDVyX22Lm2Ub2PEQHofSH-eusx27vCuWGEkdgQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact",
+			"item": [
+				{
+					"name": "Add Contact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJDSEktU29mdHdhcmUiLCJzdWIiOiJyZWdpc3RyYXRpb24iLCJleHAiOjE2ODg1NzEyNDIsImlhdCI6MTY4ODU2NzY0Miwic2NvcGUiOiJST0xFX1VTRVIifQ.b0lRNW7VjaYvDfSeOMFtBdBYCaOL9_DXlK3kfbwXtouxl1BV3KmqncmdGDGjed69N__uZVL5obo2_SgdXJju45zWBW2qfS74stTV51SPIji8sUW3B-a29E6lL6JjZ8_l_DEZPHo82k7JOjJ0GrIla0jHkrtGRhPyPINcVR-BBOTdEXjF83psRX8eA_L56xnvtOQ-pdy5rmeW-S3tDCeyarA85N6mePuNVliuv_d42ANLPBkKqkrhPELO8amWzdLSPw3an8HSShkgR-HmhZdYsd6FazlXF4wOE29zcYYBLjQXo6CGjDVyX22Lm2Ub2PEQHofSH-eusx27vCuWGEkdgQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Export Contacts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJDSEktU29mdHdhcmUiLCJzdWIiOiJyZWdpc3RyYXRpb24iLCJleHAiOjE2ODg1NzEyNDIsImlhdCI6MTY4ODU2NzY0Miwic2NvcGUiOiJST0xFX1VTRVIifQ.b0lRNW7VjaYvDfSeOMFtBdBYCaOL9_DXlK3kfbwXtouxl1BV3KmqncmdGDGjed69N__uZVL5obo2_SgdXJju45zWBW2qfS74stTV51SPIji8sUW3B-a29E6lL6JjZ8_l_DEZPHo82k7JOjJ0GrIla0jHkrtGRhPyPINcVR-BBOTdEXjF83psRX8eA_L56xnvtOQ-pdy5rmeW-S3tDCeyarA85N6mePuNVliuv_d42ANLPBkKqkrhPELO8amWzdLSPw3an8HSShkgR-HmhZdYsd6FazlXF4wOE29zcYYBLjQXo6CGjDVyX22Lm2Ub2PEQHofSH-eusx27vCuWGEkdgQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import Contacts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJDSEktU29mdHdhcmUiLCJzdWIiOiJyZWdpc3RyYXRpb24iLCJleHAiOjE2ODg1NzEyNDIsImlhdCI6MTY4ODU2NzY0Miwic2NvcGUiOiJST0xFX1VTRVIifQ.b0lRNW7VjaYvDfSeOMFtBdBYCaOL9_DXlK3kfbwXtouxl1BV3KmqncmdGDGjed69N__uZVL5obo2_SgdXJju45zWBW2qfS74stTV51SPIji8sUW3B-a29E6lL6JjZ8_l_DEZPHo82k7JOjJ0GrIla0jHkrtGRhPyPINcVR-BBOTdEXjF83psRX8eA_L56xnvtOQ-pdy5rmeW-S3tDCeyarA85N6mePuNVliuv_d42ANLPBkKqkrhPELO8amWzdLSPw3an8HSShkgR-HmhZdYsd6FazlXF4wOE29zcYYBLjQXo6CGjDVyX22Lm2Ub2PEQHofSH-eusx27vCuWGEkdgQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/auth/import",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Contact",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Show Contacts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJDSEktU29mdHdhcmUiLCJzdWIiOiJoZWxvXzEyMzQxIiwiZXhwIjoxNjg4NTgxNzEyLCJpYXQiOjE2ODg1NzgxMTIsInNjb3BlIjoiUk9MRV9VU0VSIn0.P32moGyfAlHFtZ0dUSvRpiCO4l7sdbcWqY1AEE0KHjkyIMBVoeDhIp3HALdRhonOsNLTR9VS6untosNLOnvgkjx4GtVDUBpJyThcrzZHImSL7_88dYOfM9bwAAPGFHTEL59nE3iOjmCkGdhUQ3Djwf0R3Z-x6Y2LXmCz6re3u9sgixqlWgEfofzdV4cEjh02kut1EC8DJdAONlZQ6c0V9IupoaWIzS-FQ2ZHJi92Z8S4Tzg_19wyd3XzET157W4kVhS2_HbyNC6OW_g-w9ztgQ7Hw6fBJeHorP_wD-bu_kEHPFI3jC6NSIZCicdonLusX7maH7uchq8iUjtfH8veDg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Contact",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

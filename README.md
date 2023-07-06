@@ -1,5 +1,5 @@
 # Address Book Application
-Address Book Applicationn is a web-based application that allows users to manage their contacts. Users can perform various operations such as adding new contacts, editing existing contacts, reviewing contacts, deleting contacts, and importing/exporting contacts in JSON format.
+Address Book Application is a web-based application that allows users to manage their contacts. Users can perform various operations such as adding new contacts, editing existing contacts, reviewing contacts, deleting contacts, and importing/exporting contacts in JSON format.
 
 ## Implemented Methods
 
