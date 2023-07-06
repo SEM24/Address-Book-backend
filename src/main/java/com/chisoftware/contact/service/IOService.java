@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-public interface CsvService {
+public interface IOService {
     String exportContactsToJSON(Authentication authentication) throws IOException;
 
     String importContactsFromFile(Authentication authentication, MultipartFile filePath);

@@ -1,6 +1,6 @@
 package com.chisoftware.contact.controller;
 
-import com.chisoftware.contact.service.CsvService;
+import com.chisoftware.contact.service.IOService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -16,13 +16,13 @@ import java.io.IOException;
 @RequestMapping("/contacts")
 @Tag(name = "IOController", description = "API for Import/Export")
 public class IOController {
-    private CsvService csvService;
+    private IOService IOService;
 
     @GetMapping("/export")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Export contacts")
     public String exportData(Authentication authentication) throws IOException {
-        return csvService.exportContactsToJSON(authentication);
+        return IOService.exportContactsToJSON(authentication);
     }
 
     @PutMapping("/import")
@@ -30,6 +30,6 @@ public class IOController {
     @Operation(summary = "Import contacts")
     public String importData(Authentication authentication,
                              @RequestParam("file") MultipartFile multipartFile) {
-        return csvService.importContactsFromFile(authentication, multipartFile);
+        return IOService.importContactsFromFile(authentication, multipartFile);
     }
 }

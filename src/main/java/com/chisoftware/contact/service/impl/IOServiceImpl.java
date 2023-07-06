@@ -5,7 +5,7 @@ import com.chisoftware.contact.mapper.ContactMapper;
 import com.chisoftware.contact.model.dto.ContactShort;
 import com.chisoftware.contact.model.entity.Contact;
 import com.chisoftware.contact.service.ContactService;
-import com.chisoftware.contact.service.CsvService;
+import com.chisoftware.contact.service.IOService;
 import com.chisoftware.user.UserRepository;
 import com.chisoftware.user.model.entity.User;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,7 +24,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class IOServiceImpl implements CsvService {
+public class IOServiceImpl implements IOService {
     private ContactRepository contactRepo;
     private ContactService contactService;
     private final UserRepository userRepository;
