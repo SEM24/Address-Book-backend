@@ -7,6 +7,7 @@ import com.chisoftware.user.model.dto.RegistrationDTO;
 import com.chisoftware.user.model.dto.Token;
 import com.chisoftware.user.model.entity.Role;
 import com.chisoftware.user.model.entity.User;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

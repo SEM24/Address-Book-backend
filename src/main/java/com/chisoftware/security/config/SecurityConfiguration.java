@@ -43,7 +43,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(req -> req
                 //To access the h2 db
                 .requestMatchers(antMatcher("/h2/**")).permitAll()
-                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated());
         //HTTP session state management

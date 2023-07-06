@@ -4,7 +4,10 @@ import com.chisoftware.contact.model.dto.ContactDTO;
 import com.chisoftware.contact.model.dto.ContactResponse;
 import com.chisoftware.contact.model.entity.Contact;
 import com.chisoftware.contact.service.ContactService;
-import io.swagger.v3.oas.annotations.Operation;
+import com.chisoftware.swagger.annotation.DeleteContactApiDoc;
+import com.chisoftware.swagger.annotation.GetListOfContactsApiDoc;
+import com.chisoftware.swagger.annotation.PostAddContactApiDoc;
+import com.chisoftware.swagger.annotation.PutEditContactApiDoc;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -25,31 +28,31 @@ import java.util.List;
 public class ContactController {
     private ContactService contactService;
 
-    @Operation(summary = "Show Contacts")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @GetListOfContactsApiDoc
     public List<Contact> showContacts(Authentication authentication) {
         return contactService.getAllContacts(authentication);
     }
 
-    @Operation(summary = "Add Contact")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PostAddContactApiDoc
     public ContactResponse addContact(Authentication authentication,
                                       @RequestBody @Valid ContactDTO request) {
         return contactService.addContact(authentication, request);
     }
 
     @DeleteMapping("/{contact-id}")
-    @Operation(summary = "Delete Contact")
     @ResponseStatus(HttpStatus.OK)
+    @DeleteContactApiDoc
     ContactResponse deleteContact(Authentication authentication, @PathVariable("contact-id") Long contactId) {
         return contactService.deleteContact(authentication, contactId);
     }
 
     @PutMapping("/{contact-id}")
-    @Operation(summary = "Edit Contact")
     @ResponseStatus(HttpStatus.OK)
+    @PutEditContactApiDoc
     ContactResponse editContact(Authentication authentication,
                                 @PathVariable("contact-id") Long contactId,
                                 @RequestBody @Valid ContactDTO request) {

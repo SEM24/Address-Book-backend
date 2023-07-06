@@ -10,6 +10,7 @@ import com.chisoftware.user.handler.exception.BadRequestException;
 import com.chisoftware.user.handler.exception.ForbiddenRequestException;
 import com.chisoftware.user.model.entity.User;
 import com.chisoftware.user.service.UserService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -52,8 +53,11 @@ public class ContactServiceImpl implements ContactService {
         User currentUser = getCurrentUser(authentication.getName());
         Contact contact = findById(contactId);
         checkIfNotOwnContact(currentUser, contact);
-
-        updateContactFields(contact, request, currentUser);
+        validateRequest(request, currentUser);
+        contact.setName(request.name());
+        contact.setPhones(new HashSet<>(request.phones()));
+        contact.setEmails(new HashSet<>(request.emails()));
+        /*updateContactFields(contact, request, currentUser);*/
         contactRepo.save(contact);
 
         return new ContactResponse(contact.getId(), "Edited successfully!");
@@ -69,11 +73,12 @@ public class ContactServiceImpl implements ContactService {
     }
 
     /*
+     * UPD: This method was removed since in the task mentioned PUT mapping, not PATCH.
+     *
      * Check the request fields and use a condition to handle the situation when the request fields are empty
-     * (since a PUT mapping can receive specific amount of fields).
+     * (since a PATCH mapping can receive specific amount of fields).
      */
-
-    private void updateContactFields(Contact contact, ContactDTO request, User currentUser) {
+  /*  private void updateContactFields(Contact contact, ContactDTO request, User currentUser) {
         if (request.name() != null && !request.name().isEmpty()) {
             checkIfContactNameNotUnique(request, currentUser);
             contact.setName(request.name());
@@ -92,7 +97,7 @@ public class ContactServiceImpl implements ContactService {
             }
             contact.setEmails(uniqueEmails);
         }
-    }
+    }*/
 
     private void checkIfContactNameNotUnique(ContactDTO request, User currentUser) {
         //Contact names must be unique for current user, but not for others
