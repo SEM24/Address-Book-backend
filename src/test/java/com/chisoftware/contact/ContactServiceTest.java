@@ -2,10 +2,11 @@ package com.chisoftware.contact;
 
 import com.chisoftware.contact.handler.annotation.ValidEmail;
 import com.chisoftware.contact.handler.annotation.ValidPhone;
+import com.chisoftware.contact.mapper.ContactMapper;
 import com.chisoftware.contact.model.dto.ContactDTO;
 import com.chisoftware.contact.model.dto.ContactResponse;
 import com.chisoftware.contact.model.entity.Contact;
-import com.chisoftware.contact.service.ContactServiceImpl;
+import com.chisoftware.contact.service.impl.ContactServiceImpl;
 import com.chisoftware.user.handler.exception.ForbiddenRequestException;
 import com.chisoftware.user.model.entity.Role;
 import com.chisoftware.user.model.entity.User;
@@ -31,6 +32,8 @@ class ContactServiceTest {
     private UserServiceImpl userService;
     @Mock
     private ContactRepository contactRepo;
+    @Mock
+    ContactMapper contactMapper;
     @InjectMocks
     private ContactServiceImpl contactService;
     private User user;
@@ -151,16 +154,30 @@ class ContactServiceTest {
                         Contact.builder().id(2L).name("Contact 2").build()
                 ))
                 .build();
+
         //Mock the method calls
         when(userService.findUserByUsername(authentication.getName())).thenReturn(user);
-        //Invoke the method
-        List<Contact> contacts = contactService.getAllContacts(authentication);
 
-        //Verify that the method
+        //Define the expected contact DTOs
+        List<ContactDTO> expectedContacts = List.of(
+                ContactDTO.builder().name("Contact 1").build(),
+                ContactDTO.builder().name("Contact 2").build()
+        );
+
+        //Mock the behavior of contactMapper
+        when(contactMapper.toContactDTO(any(Contact.class))).thenAnswer(invocation -> {
+            Contact contact = invocation.getArgument(0);
+            return ContactDTO.builder().name(contact.getName()).build();
+        });
+
+        //Invoke the method
+        List<ContactDTO> contacts = contactService.getAllContacts(authentication);
+
+        //Verify that the method was called and the results match the expected contacts
         verify(userService).findUserByUsername(authentication.getName());
-        assertEquals(2, contacts.size());
-        assertEquals("Contact 1", contacts.get(0).getName());
-        assertEquals("Contact 2", contacts.get(1).getName());
+        assertEquals(expectedContacts.size(), contacts.size());
+        assertEquals(expectedContacts.get(0).name(), contacts.get(0).name());
+        assertEquals(expectedContacts.get(1).name(), contacts.get(1).name());
     }
 
     @Test
