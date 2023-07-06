@@ -1,21 +1,23 @@
-package com.chisoftware.contact.service;
+package com.chisoftware.contact.service.impl;
 
 import com.chisoftware.contact.ContactRepository;
 import com.chisoftware.contact.handler.exception.AlreadyExistsException;
 import com.chisoftware.contact.handler.exception.ContactNotFoundException;
+import com.chisoftware.contact.mapper.ContactMapper;
 import com.chisoftware.contact.model.dto.ContactDTO;
 import com.chisoftware.contact.model.dto.ContactResponse;
 import com.chisoftware.contact.model.entity.Contact;
+import com.chisoftware.contact.service.ContactService;
 import com.chisoftware.user.handler.exception.BadRequestException;
 import com.chisoftware.user.handler.exception.ForbiddenRequestException;
 import com.chisoftware.user.model.entity.User;
 import com.chisoftware.user.service.UserService;
-import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,12 +28,13 @@ import java.util.Set;
 public class ContactServiceImpl implements ContactService {
     private ContactRepository contactRepo;
     private UserService userService;
+    private ContactMapper contactMapper;
 
     @Override
     @Transactional(readOnly = true)
-    public List<Contact> getAllContacts(Authentication authentication) {
+    public List<ContactDTO> getAllContacts(Authentication authentication) {
         User user = getCurrentUser(authentication.getName());
-        return user.getContacts();
+        return new ArrayList<>(user.getContacts().stream().map(contactMapper::toContactDTO).toList());
     }
 
     @Override
@@ -101,7 +104,7 @@ public class ContactServiceImpl implements ContactService {
 
     private void checkIfContactNameNotUnique(ContactDTO request, User currentUser) {
         //Contact names must be unique for current user, but not for others
-        if (contactRepo.existsByNameContainsIgnoreCaseAndUser(request.name(), currentUser))
+        if (contactRepo.existsByNameEqualsIgnoreCaseAndUser(request.name(), currentUser))
             throw new AlreadyExistsException("Contact names must be unique for each contact.");
     }
 
@@ -126,7 +129,7 @@ public class ContactServiceImpl implements ContactService {
         }
     }
 
-
+    @Override
     public User getCurrentUser(String username) {
         User user = userService.findUserByUsername(username);
         if (userService.isNotCurrentUser(user)) {

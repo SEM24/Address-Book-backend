@@ -29,6 +29,5 @@ public class Contact {
     private Set<String> phones;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
 }

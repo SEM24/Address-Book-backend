@@ -31,7 +31,7 @@ public class ContactController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @GetListOfContactsApiDoc
-    public List<Contact> showContacts(Authentication authentication) {
+    public List<ContactDTO> showContacts(Authentication authentication) {
         return contactService.getAllContacts(authentication);
     }
 

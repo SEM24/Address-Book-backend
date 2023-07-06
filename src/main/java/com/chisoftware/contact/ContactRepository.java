@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ContactRepository extends JpaRepository<Contact, Long> {
-    boolean existsByNameContainsIgnoreCaseAndUser(@Param("name") String name, @Param("user") User user);
+    boolean existsByNameEqualsIgnoreCaseAndUser(@Param("name") String name, @Param("user") User user);
 
     List<Contact> findByUser(User user);
 }
