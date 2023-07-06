@@ -14,6 +14,20 @@ The following methods have been implemented in the codebase:
 | Delete existing contact            | Enables users to delete an existing contact                     | `deleteContact()` (ContactController)  |
 | Get list of existing contacts      | Retrieves the list of existing contacts for a user              | `showContacts()` (ContactController)   |
 
+### Custom Contact Validations and Tests
+In this application, custom annotations are used to validate the phone numbers, emails, and Latin names for contacts. These annotations ensure that the provided contact information meets specific requirements and enhances the data integrity and accuracy within the system.
+
+For example:
+
+```@ValidPhone```: Validates the phone numbers to match a specific pattern (+380-YY-XXXXXXX).
+
+```@ValidEmail```: Validates the email addresses to meet standard email format (example@gmail.com).
+
+```@ValidLatinName```: Validates the names to contain only Latin characters.
+
+These custom annotations are utilized throughout the contact-related operations to ensure the validity of the provided data.
+
+Also there were implemented ContactServiceTest and UserServiceTest to cover public methods.
 ## Additional Tasks
 
 The following additional tasks have been implemented:
