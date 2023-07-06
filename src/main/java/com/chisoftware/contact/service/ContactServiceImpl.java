@@ -1,4 +1,4 @@
-package com.chisoftware.contact.service.impl;
+package com.chisoftware.contact.service;
 
 import com.chisoftware.contact.ContactRepository;
 import com.chisoftware.contact.handler.exception.AlreadyExistsException;
@@ -7,7 +7,6 @@ import com.chisoftware.contact.mapper.ContactMapper;
 import com.chisoftware.contact.model.dto.ContactDTO;
 import com.chisoftware.contact.model.dto.ContactResponse;
 import com.chisoftware.contact.model.entity.Contact;
-import com.chisoftware.contact.service.ContactService;
 import com.chisoftware.user.handler.exception.BadRequestException;
 import com.chisoftware.user.handler.exception.ForbiddenRequestException;
 import com.chisoftware.user.model.entity.User;

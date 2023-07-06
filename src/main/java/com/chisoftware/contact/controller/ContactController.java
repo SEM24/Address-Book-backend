@@ -2,7 +2,6 @@ package com.chisoftware.contact.controller;
 
 import com.chisoftware.contact.model.dto.ContactDTO;
 import com.chisoftware.contact.model.dto.ContactResponse;
-import com.chisoftware.contact.model.entity.Contact;
 import com.chisoftware.contact.service.ContactService;
 import com.chisoftware.swagger.annotation.DeleteContactApiDoc;
 import com.chisoftware.swagger.annotation.GetListOfContactsApiDoc;

@@ -1,5 +1,6 @@
 package com.chisoftware.contact.model.entity;
 
+import com.chisoftware.additional.model.entity.ImageData;
 import com.chisoftware.user.model.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -19,6 +20,10 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "image_id", referencedColumnName = "id")
+//    private ImageData image;
 
     private String name;
 

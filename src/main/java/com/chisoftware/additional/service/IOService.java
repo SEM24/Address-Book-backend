@@ -1,11 +1,11 @@
-package com.chisoftware.contact.service;
+package com.chisoftware.additional.service;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-public interface CsvService {
+public interface IOService {
     String exportContactsToJSON(Authentication authentication) throws IOException;
 
     String importContactsFromFile(Authentication authentication, MultipartFile filePath);
