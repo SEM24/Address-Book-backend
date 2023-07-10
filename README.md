@@ -32,7 +32,7 @@ Also there were implemented ContactServiceTest and UserServiceTest to cover publ
 
 The following additional tasks have been implemented:
 
-- Swagger Documentation: Added Swagger documentation to the project for easy API reference and testing. Can be accessed through ```http://localhost:8081/swagger-ui/index.html#/```
+- Swagger Documentation: Added Swagger documentation to the project for easy API reference and testing. Can be accessed through ```http://localhost:8081/swagger-ui/index.html```
 - Export/Import Contacts: Implemented the ability to export and import contacts in JSON format.
 ## How to Run the Project
 

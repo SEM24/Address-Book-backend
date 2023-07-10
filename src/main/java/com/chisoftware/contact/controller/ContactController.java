@@ -8,6 +8,8 @@ import com.chisoftware.swagger.annotation.DeleteContactApiDoc;
 import com.chisoftware.swagger.annotation.GetListOfContactsApiDoc;
 import com.chisoftware.swagger.annotation.PostAddContactApiDoc;
 import com.chisoftware.swagger.annotation.PutEditContactApiDoc;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -29,8 +31,8 @@ public class ContactController {
     private ContactService contactService;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @GetListOfContactsApiDoc
+    @Operation(summary = "Get All Contacts of User")
+    @ApiResponse(responseCode = "200", description = "Successful operation")
     public List<ContactDTO> showContacts(Authentication authentication) {
         return contactService.getAllContacts(authentication);
     }

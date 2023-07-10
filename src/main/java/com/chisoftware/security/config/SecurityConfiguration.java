@@ -45,7 +45,6 @@ public class SecurityConfiguration {
                 .requestMatchers(antMatcher("/h2/**")).permitAll()
                 .requestMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/export/**").permitAll()
                 .anyRequest().authenticated());
         //HTTP session state management
         http.sessionManagement().sessionCreationPolicy(STATELESS);
