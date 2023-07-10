@@ -31,8 +31,8 @@ public class ContactController {
     private ContactService contactService;
 
     @GetMapping
-    @Operation(summary = "Get All Contacts of User")
-    @ApiResponse(responseCode = "200", description = "Successful operation")
+    @ResponseStatus(HttpStatus.OK)
+    @GetListOfContactsApiDoc
     public List<ContactDTO> showContacts(Authentication authentication) {
         return contactService.getAllContacts(authentication);
     }
